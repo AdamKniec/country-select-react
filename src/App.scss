@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "Nunito Thin";
+  src: url("../src/assets/fonts/NunitoSans-Light.ttf");
+}
+@font-face {
+  font-family: "Nunito Medium";
+  src: url("../src/assets/fonts/NunitoSans-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Nunito Bold";
+  src: url("../src/assets/fonts/NunitoSans-ExtraBold.ttf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Nunito Thin;
+  .title {
+    font-family: Nunito Bold;
+  }
+  .dark-mode-toggle-container {
+    display: flex;
+    align-items: center;
+    font-family: Nunito Medium;
+    .moon-icon {
+      width: 15px;
+      margin-right: 5px;
+    }
+  }
+}
