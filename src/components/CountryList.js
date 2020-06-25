@@ -1,22 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ListItem from "./CountryCard";
+import { Link } from "react-router-dom";
 
-const CountryList = () => {
-  const [countriesList, setCountriesList] = useState([]);
-
-  useEffect(() => {
-    fetch("https://restcountries.eu/rest/v2/all").then((response) =>
-      response.json().then((data) => setCountriesList(data))
-    );
-  }, []);
-
+const CountryList = (props) => {
+  console.log(props);
   const renderList = () => {
-    return countriesList.map((item) => {
-      return <ListItem country={item} />;
+    return props.list.map((item) => {
+      return (
+        <Link
+          to={`${item.alpha3Code}`}
+          key={item.name}
+          onClick={() => props.selectCountry(item)}
+        >
+          <ListItem country={item} key={item.name} />
+        </Link>
+      );
     });
   };
 
-  return countriesList.length !== 0 ? renderList() : "";
+  return props.list.length !== 0 ? renderList() : "";
 };
 
 export default CountryList;

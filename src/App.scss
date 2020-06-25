@@ -27,4 +27,31 @@ body {
       margin-right: 5px;
     }
   }
+  .actionBox {
+    padding: 0 10%;
+    display: flex;
+    // justify-content: center;
+    max-width: 1260px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
+  .country-cards-wrapper {
+    padding: 0 10%;
+    display: flex;
+    justify-content: center;
+    max-width: 1260px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    a {
+      margin: 0 30px 30px 30px;
+    }
+  }
+  .details-container {
+    display: flex;
+    img {
+      width: 500px;
+      height: 320px;
+      margin-right: 70px;
+    }
+  }
 }
