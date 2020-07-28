@@ -6,11 +6,7 @@ const CountryList = (props) => {
   const renderList = () => {
     return props.list.map((item) => {
       return (
-        <Link
-          to={`${item.alpha3Code}`}
-          key={item.name}
-          // onClick={() => props.selectCountry()}
-        >
+        <Link to={`${item.alpha3Code}`} key={item.name}>
           <ListItem country={item} key={item.name} />
         </Link>
       );

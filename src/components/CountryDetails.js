@@ -1,74 +1,86 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+// const BrowserHistory = require("react-router/lib/BrowserHistory");
 
 const CountryDetails = (props) => {
-  // const [selectedCountry, setSelectedCountry] = useState({});
+  const [selectedCountry, setSelectedCountry] = useState({});
   console.log(props);
   useEffect(() => {
-    props.setSelectedCountry(props.filterUrl());
-  }, []);
-  // const filterBasedOfUrlParam = () => {
-  //   const countryCode = props.history.location.pathname;
+    setSelectedCountry(filterBasedOfUrlParam()[0]);
+  }, [window.location.href, props.countriesList]);
 
-  //   const noSlashCountryCode = countryCode.substr(1).toLowerCase();
+  const filterBasedOfUrlParam = () => {
+    const countryCode = props.history.location.pathname;
+    const noSlashCountryCode = countryCode.substr(1).toLowerCase();
 
-  //   return props.countriesList.filter(
-  //     (country) =>
-  //       country.alpha3Code.toLowerCase().indexOf(noSlashCountryCode) !== -1
-  //   );
-  // };
-  // if (props.selectedCountry[0]) {
-  return (
-    <div className="details-container">
-      <Link to="/">
-        <button>Go back</button>
-      </Link>
-      {/* <div className="flag">
-          <img src={`${props.selectedCountry[0].flag}`} alt="" />
-        </div> */}
-      {/* <div className="inner-details-wrapper">
-        <h3>{props.selectedCountry.name}</h3>
-        <div className="details-list">
-          <div className="country-info-box">
-            <p>Native name: {props.selectedCountry.nativeName}</p>
-            <p>Population: {props.selectedCountry.population}</p>
-            <p>Region: {props.selectedCountry.region}</p>
-            <p>Sub Region: {props.selectedCountry.subregion}</p>
-            <p>Capital {props.selectedCountry.capital}</p>
-          </div>
-          <div>
-            <p>Top Level Domain:{props.selectedCountry.topLevelDomain}</p>
-            <p>
-              Currencies:{" "}
-              {props.selectedCountry.currencies.map((currency) => {
-                return currency.name;
-              })}
-            </p>
-            <p>
-              Languages:{" "}
-              {props.selectedCountry.languages.map((language) => {
-                return language.name;
-              })}
-            </p>
-          </div>
+    return props.countriesList.filter(
+      (country) =>
+        country.alpha3Code.toLowerCase().indexOf(noSlashCountryCode) !== -1
+    );
+  };
+
+  if (selectedCountry) {
+    return (
+      <div className="details-container">
+        <button onClick={() => props.history.goBack()}>Go back</button>
+        <div>{<img src={selectedCountry.flag} alt="" />}</div>
+        <div>
+          <p>Native Name: {selectedCountry.nativeName}</p>
+          <p>Population: {selectedCountry.population}</p>
+          <p>Region: {selectedCountry.region}</p>
+          <p>Seb Region: {selectedCountry.subregion}</p>
+          <p>Capital: {selectedCountry.capital}</p>
+        </div>
+        <div>
+          <p>Top Level Domain: {selectedCountry.topLevelDomain}</p>
+          <p>
+            {/* na dole trzeba poprawic kwestie z przecinkami */}
+            {/* czy na pewno potrzebujemy na dole tego warunku sprzwdzajacego za kazdym razem ? ? */}
+            Currencies:{" "}
+            {selectedCountry.currencies
+              ? selectedCountry.currencies.map((currency) => {
+                  return selectedCountry.currencies.length > 0
+                    ? currency.code + ","
+                    : currency.code;
+                })
+              : ""}
+          </p>
+          <p>
+            Languages:{" "}
+            {selectedCountry.languages
+              ? selectedCountry.languages.map((language) => {
+                  return selectedCountry.languages.length > 0
+                    ? language.name + ","
+                    : language.name;
+                })
+              : ""}
+          </p>
         </div>
         <div>
           <p>
             Border Countries:{" "}
-            {props.selectedCountry.borders.map((item) => {
-              return (
-                <Link to={`${item}`}>
-                  <button>{item}</button>
-                </Link>
-              );
-            })}
+            {selectedCountry.borders
+              ? selectedCountry.borders.map((item, i) => {
+                  return (
+                    <Link to={`${item}`} key={i}>
+                      <button
+                        onClick={() =>
+                          setSelectedCountry(filterBasedOfUrlParam()[0])
+                        }
+                      >
+                        {item}
+                      </button>
+                    </Link>
+                  );
+                })
+              : ""}
           </p>
         </div>
-      </div> */}
-    </div>
-  );
-  // }
-  return null;
+      </div>
+    );
+  } else {
+    return null;
+  }
 };
 
 export default CountryDetails;
