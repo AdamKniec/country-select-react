@@ -1,7 +1,8 @@
 import React from "react";
 import { ReactComponent as MagGlass } from "../assets/imgs/magGlass.svg";
 
-const SearchInput = ({ inputValue, changeHandler }) => {
+const SearchInput = ({ value, changeHandler }) => {
+  console.log(value);
   return (
     <label htmlFor="searchInput" className="input-container">
       <span>
@@ -11,7 +12,7 @@ const SearchInput = ({ inputValue, changeHandler }) => {
       <input
         type="text"
         id="searchInput"
-        value={inputValue}
+        value={value}
         onChange={changeHandler}
         className="searchInput"
         placeholder="Search for a country..."

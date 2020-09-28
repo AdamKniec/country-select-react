@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 
 const CountryDetails = (props) => {
   const [selectedCountry, setSelectedCountry] = useState({});
-  // console.log(props);
 
   useEffect(() => {
     setSelectedCountry(filterBasedOfUrlParam()[0]);
