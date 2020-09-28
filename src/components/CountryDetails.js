@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// const BrowserHistory = require("react-router/lib/BrowserHistory");
 
 const CountryDetails = (props) => {
   const [selectedCountry, setSelectedCountry] = useState({});
-  console.log(props);
+  // console.log(props);
+
   useEffect(() => {
     setSelectedCountry(filterBasedOfUrlParam()[0]);
   }, [window.location.href, props.countriesList]);
@@ -18,68 +18,133 @@ const CountryDetails = (props) => {
         country.alpha3Code.toLowerCase().indexOf(noSlashCountryCode) !== -1
     );
   };
+  const getFullNamesArrayOfBorderCountries = () => {
+    const arrayOfBorders = selectedCountry.borders;
+    return props.countriesList
+      .filter((country) => {
+        return arrayOfBorders
+          ? arrayOfBorders.indexOf(country.alpha3Code) !== -1
+          : [];
+      })
+      .map((item) => item.name);
+  };
 
-  if (selectedCountry) {
+  if (selectedCountry && selectedCountry.borders) {
     return (
       <div className="details-container">
-        <button onClick={() => props.history.goBack()}>Go back</button>
-        <div>{<img src={selectedCountry.flag} alt="" />}</div>
         <div>
-          <p>Native Name: {selectedCountry.nativeName}</p>
-          <p>Population: {selectedCountry.population}</p>
-          <p>Region: {selectedCountry.region}</p>
-          <p>Seb Region: {selectedCountry.subregion}</p>
-          <p>Capital: {selectedCountry.capital}</p>
+          <button
+            className="go-back-button"
+            onClick={() => props.history.goBack()}
+          >
+            Back
+          </button>
         </div>
-        <div>
-          <p>Top Level Domain: {selectedCountry.topLevelDomain}</p>
-          <p>
-            {/* na dole trzeba poprawic kwestie z przecinkami */}
-            {/* czy na pewno potrzebujemy na dole tego warunku sprzwdzajacego za kazdym razem ? ? */}
-            Currencies:{" "}
-            {selectedCountry.currencies
-              ? selectedCountry.currencies.map((currency) => {
-                  return selectedCountry.currencies.length > 0
-                    ? currency.code + ","
-                    : currency.code;
-                })
-              : ""}
-          </p>
-          <p>
-            Languages:{" "}
-            {selectedCountry.languages
-              ? selectedCountry.languages.map((language) => {
-                  return selectedCountry.languages.length > 0
-                    ? language.name + ","
-                    : language.name;
-                })
-              : ""}
-          </p>
-        </div>
-        <div>
-          <p>
-            Border Countries:{" "}
-            {selectedCountry.borders
-              ? selectedCountry.borders.map((item, i) => {
-                  return (
-                    <Link to={`${item}`} key={i}>
-                      <button
-                        onClick={() =>
-                          setSelectedCountry(filterBasedOfUrlParam()[0])
-                        }
-                      >
-                        {item}
-                      </button>
-                    </Link>
-                  );
-                })
-              : ""}
-          </p>
+        <div className="country-details-data-container">
+          <div>{<img src={selectedCountry.flag} alt="" />}</div>
+          <div>
+            <div>
+              <p className="country-name bold">{selectedCountry.name}</p>
+            </div>
+            <div className="inline-details-content">
+              <div>
+                <p>
+                  <span className="bold">Native Name: </span>
+                  {selectedCountry.nativeName}
+                </p>
+                <p>
+                  <span className="bold">Population: </span>
+                  {selectedCountry.population}
+                </p>
+                <p>
+                  <span className="bold">Region: </span>
+                  {selectedCountry.region}
+                </p>
+                <p>
+                  <span className="bold">Sub Region: </span>
+                  {selectedCountry.subregion}
+                </p>
+                <p>
+                  <span className="bold">Capital: </span>
+                  {selectedCountry.capital}
+                </p>
+              </div>
+              <div>
+                <p>
+                  <span className="bold"> Top Level Domain: </span>
+                  {selectedCountry.topLevelDomain}
+                </p>
+                <p>
+                  {/* czy na pewno potrzebujemy na dole tego warunku sprzwdzajacego za kazdym razem ? ? */}
+                  <span className="bold"> Currencies: </span>
+                  {selectedCountry.currencies.map((currency, index) => {
+                    return (
+                      <span key={index}>
+                        {(index ? ", " : "") + currency.name}
+                      </span>
+                    );
+                  })}
+                </p>
+                <p>
+                  <span className="bold"> Languages: </span>
+                  {selectedCountry.languages.map((language, index) => {
+                    return (
+                      <span key={index}>
+                        {(index ? ", " : "") + language.name}
+                      </span>
+                    );
+                  })}
+                </p>
+              </div>
+            </div>
+
+            <div className="borders bold">
+              <p>
+                <span className="bold"> Border Countries: </span>
+
+                {
+                  getFullNamesArrayOfBorderCountries().map((item, i) => {
+                    return (
+                      <Link to={`${item}`} key={i}>
+                        <button
+                          onClick={() =>
+                            setSelectedCountry(filterBasedOfUrlParam()[0])
+                          }
+                          className="border-country"
+                        >
+                          {item}
+                        </button>
+                      </Link>
+                    );
+                  })
+                  // selectedCountry.borders.length ? (
+                  //   selectedCountry.borders.map((item, i) => {
+                  //     // console.log(fullNames);
+                  //     return (
+                  //       <Link to={`${item}`} key={i}>
+                  //         <button
+                  //           onClick={() =>
+                  //             setSelectedCountry(filterBasedOfUrlParam()[0])
+                  //           }
+                  //           className="border-country"
+                  //         >
+                  //           {item}
+                  //         </button>
+                  //       </Link>
+                  //     );
+                  //   })
+                  // ) : (
+                  //   <span>None</span>
+                  // )
+                }
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     );
   } else {
-    return null;
+    return "nic nie ma ";
   }
 };
 

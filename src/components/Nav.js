@@ -12,15 +12,18 @@ const NavBar = styled.nav`
 }
 `;
 
-const Nav = () => {
+const Nav = ({ toggleDarkMode }) => {
   return (
     <NavBar>
       <h3 className="title">Where in the world ?</h3>
       <div className="dark-mode-toggle-container">
-        <span>
-          <MoonIcon />
-        </span>
-        <span>Dark mode</span>
+        {/* <span>Dark mode</span> */}
+        <button onClick={() => toggleDarkMode()}>
+          <span>
+            <MoonIcon />
+          </span>
+          Dark Mode
+        </button>
       </div>
     </NavBar>
   );

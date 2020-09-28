@@ -1,16 +1,29 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 const CountryCard = (props) => {
   return (
-    <CountryCardItem>
+    <CountryCardItem className="country-list-item-wrapper">
       <img src={`${props.country.flag}`} alt="" className="flag" />
-      <div>
-        <h4 className="country-detail">{props.country.name}</h4>
-        <p className="country-detail">Population: {props.country.population}</p>
-        <p className="country-detail">Region: {props.country.region}</p>
-        <p className="country-detail">Capital: {props.country.capital}</p>
+      <div className="country-container">
+        <h4 className="country-detail name">{props.country.name}</h4>
+        <div className="detail-wrapper">
+          <p className="country-detail">
+            {" "}
+            <span className="detail-info-title">Population: </span>{" "}
+            {props.country.population}
+          </p>
+          <p className="country-detail">
+            {" "}
+            <span className="detail-info-title">Region: </span>{" "}
+            {props.country.region}
+          </p>
+          <p className="country-detail">
+            {" "}
+            <span className="detail-info-title"> Capital:</span>{" "}
+            {props.country.capital}
+          </p>
+        </div>
       </div>
     </CountryCardItem>
   );
@@ -20,7 +33,8 @@ const CountryCardItem = styled.div`
   box-shadow: 0 2px 1px rgba(0, 0, 0, 0.06), 0 0 40px rgba(0, 0, 0, 0.1);
   .flag {
     width: 250px;
-    height: 150px;
+    height: auto;
+    border-radius: 10px 10px 0px 0px;
   }
   .country-detail {
     padding-left: 20px;

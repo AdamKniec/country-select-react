@@ -22,39 +22,269 @@ body {
     display: flex;
     align-items: center;
     font-family: Nunito Medium;
-    .moon-icon {
-      width: 15px;
-      margin-right: 5px;
+    button {
+      background: none;
+      border: none;
+      &:hover {
+        cursor: pointer;
+      }
+      .moon-icon {
+        width: 15px;
+        margin-right: 5px;
+        background: none;
+        border: none;
+      }
     }
   }
-  .actionBox {
-    padding: 0 10%;
-    display: flex;
-    // justify-content: center;
-    max-width: 1260px;
-    flex-wrap: wrap;
-    margin: 0 auto;
-  }
-  .country-cards-wrapper {
+
+  .content-container {
     padding: 0 10%;
     display: flex;
     justify-content: center;
     max-width: 1260px;
     flex-wrap: wrap;
     margin: 0 auto;
-    a {
-      margin: 0 30px 30px 30px;
+    .actionBox {
+      margin: 40px 3%;
+      // padding: 0 10%;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      display: flex;
+      max-width: 1260px;
+      flex-wrap: wrap;
+      // margin: 0 auto;
+      // margin-top: 40px;
+      // margin-bottom: 40px;
+      max-width: 1260px;
+      flex-wrap: wrap;
+      .input-container {
+        position: relative;
+        span {
+          position: absolute;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          left: 20px;
+          .mag-glass-icon {
+            width: 15px;
+            height: 15px;
+            left: 20px;
+            // position: absolute;
+          }
+        }
+
+        .searchInput {
+          width: 400px;
+          height: 40px;
+          // background: url("./assets/imgs/search\ \(1\).svg") no-repeat;
+          // background-size: 20px;
+          // background-position: 5%;
+          padding-left: 50px;
+          border: none;
+          background-color: hsl(0, 0%, 100%);
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+          border-radius: 5px;
+        }
+      }
+
+      .region-switcher-container {
+        position: relative;
+
+        .region-switch-trigger {
+          height: 40px;
+          width: 170px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-left: 20px;
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+          border-radius: 5px;
+          background-color: #fff;
+          border: none;
+          margin-bottom: 5px;
+          .arrow-icon {
+            width: 10px;
+            height: 10px;
+            margin-right: 10px;
+          }
+        }
+        .regions-filters-container {
+          display: none;
+        }
+        .active {
+          display: block;
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          width: 100%;
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+          padding-top: 15px;
+          padding-bottom: 15px;
+          background-color: #fff;
+          border-radius: 5px;
+
+          .regionFilter {
+            border: none;
+            text-align: left;
+            padding-left: 20px;
+            background-color: #fff;
+            padding-bottom: 5px;
+          }
+        }
+      }
+    }
+    .countries-list-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .country-item {
+        margin: 0 30px 30px 30px;
+        text-decoration: none;
+        color: black;
+        .country-list-item-wrapper {
+          border-radius: 0 0 10px 10px;
+          max-width: 250px;
+          .country-detail {
+            font-size: 0.8em;
+            .detail-info-title {
+              font-family: nunito medium;
+            }
+          }
+          .name {
+            font-family: Nunito Bold;
+            font-size: 1em;
+            margin: 0;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            margin-top: -6px; // moze da sie to jakos naprawic ?
+          }
+          .detail-wrapper {
+            padding-bottom: 30px;
+            p {
+              margin-bottom: 0;
+              margin-top: 5px;
+            }
+          }
+        }
+      }
     }
   }
   .details-container {
-    display: flex;
-    img {
-      width: 500px;
-      height: 320px;
-      margin-right: 70px;
+    .go-back-button {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      background-color: #fff;
+      border: none;
+      width: 140px;
+      height: 40px;
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+      border-radius: 5px;
+      &:before {
+        content: "";
+        display: block;
+        background: url("../src/assets/imgs/arrow.svg") no-repeat;
+        width: 20px;
+        height: 20px;
+      }
     }
-    .details-list {
+    .country-details-data-container {
       display: flex;
+      img {
+        width: 500px;
+        height: 320px;
+        margin-right: 70px;
+      }
+      .country-name {
+        font-family: Nunito Bold;
+        font-size: 1.5rem;
+      }
+      .inline-details-content,
+      .borders {
+        display: flex;
+        .bold {
+          font-family: Nunito Medium;
+          font-size: 0.9rem;
+          // margin-right: 15px;
+        }
+        .border-country {
+          width: auto;
+          height: 30px;
+          background: none;
+          border: none;
+          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+          margin-right: 10px;
+          font-family: Nunito Thin;
+          padding: 0 15px 0 15px;
+        }
+      }
+
+      .inline-details-content div p {
+        margin: 5px;
+      }
+    }
+  }
+  .dark {
+    height: 100vh;
+    background-color: hsl(207, 26%, 17%);
+    .country-container {
+      color: #fff;
+      background-color: hsl(209, 23%, 22%);
+      border-radius: 0 0 10px 10px;
+    }
+    nav {
+      .title,
+      .dark-mode-toggle-container button {
+        color: #fff;
+      }
+      .moon-icon {
+        fill: #fff;
+      }
+    }
+    .actionBox {
+      .input-container {
+        .mag-glass-icon {
+          fill: #fff;
+        }
+        .searchInput {
+          background-color: hsl(209, 23%, 22%);
+          color: white;
+          &::placeholder {
+            color: #fff;
+          }
+        }
+      }
+
+      .region-switcher-container .region-switch-trigger {
+        background-color: hsl(209, 23%, 22%);
+        color: white;
+        .arrow-icon {
+          fill: #fff;
+        }
+      }
+      .regions-filters-container.active {
+        background-color: hsl(209, 23%, 22%);
+
+        .regionFilter {
+          background-color: hsl(209, 23%, 22%);
+          color: #fff;
+        }
+      }
+    }
+    .details-container {
+      nav > button {
+        background-color: #2b3945;
+        color: white;
+      }
+      .country-details-data-container {
+        color: #fff;
+        .border-country {
+          background-color: #2b3945;
+          color: white;
+        }
+      }
     }
   }
 }
