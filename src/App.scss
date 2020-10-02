@@ -46,95 +46,14 @@ body {
     margin: 0 auto;
     .actionBox {
       margin: 40px 3%;
-      // padding: 0 10%;
       display: flex;
       justify-content: space-between;
       width: 100%;
       display: flex;
       max-width: 1260px;
       flex-wrap: wrap;
-      // margin: 0 auto;
-      // margin-top: 40px;
-      // margin-bottom: 40px;
       max-width: 1260px;
       flex-wrap: wrap;
-      .input-container {
-        position: relative;
-        span {
-          position: absolute;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-          left: 20px;
-          .mag-glass-icon {
-            width: 15px;
-            height: 15px;
-            left: 20px;
-            // position: absolute;
-          }
-        }
-
-        .searchInput {
-          width: 400px;
-          height: 40px;
-          // background: url("./assets/imgs/search\ \(1\).svg") no-repeat;
-          // background-size: 20px;
-          // background-position: 5%;
-          padding-left: 50px;
-          border: none;
-          background-color: hsl(0, 0%, 100%);
-          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
-          border-radius: 5px;
-        }
-      }
-
-      .region-switcher-container {
-        position: relative;
-
-        .region-switch-trigger {
-          height: 40px;
-          width: 170px;
-          position: relative;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding-left: 20px;
-          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
-          border-radius: 5px;
-          background-color: #fff;
-          border: none;
-          margin-bottom: 5px;
-          .arrow-icon {
-            width: 10px;
-            height: 10px;
-            margin-right: 10px;
-          }
-        }
-        .regions-filters-container {
-          display: none;
-        }
-        .active {
-          display: block;
-          display: flex;
-          flex-direction: column;
-          position: absolute;
-          width: 100%;
-          box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
-          padding-top: 15px;
-          padding-bottom: 15px;
-          background-color: #fff;
-          border-radius: 5px;
-
-          .regionFilter {
-            border: none;
-            text-align: left;
-            padding-left: 20px;
-            background-color: #fff;
-            padding-bottom: 5px;
-          }
-        }
-      }
     }
     .countries-list-wrapper {
       display: flex;
@@ -182,16 +101,21 @@ body {
       height: 40px;
       box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
       border-radius: 5px;
-      &:before {
-        content: "";
-        display: block;
-        background: url("../src/assets/imgs/arrow.svg") no-repeat;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-left: 20px;
+      svg {
         width: 20px;
         height: 20px;
+        position: absolute;
+        left: 35px;
       }
     }
     .country-details-data-container {
       display: flex;
+      align-items: center;
       img {
         width: 500px;
         height: 320px;
@@ -218,6 +142,7 @@ body {
           margin-right: 10px;
           font-family: Nunito Thin;
           padding: 0 15px 0 15px;
+          margin-bottom: 10px;
         }
       }
 
@@ -227,7 +152,7 @@ body {
     }
   }
   .dark {
-    height: 100vh;
+    height: 100%;
     background-color: hsl(207, 26%, 17%);
     .country-container {
       color: #fff;
@@ -257,13 +182,6 @@ body {
         }
       }
 
-      .region-switcher-container .region-switch-trigger {
-        background-color: hsl(209, 23%, 22%);
-        color: white;
-        .arrow-icon {
-          fill: #fff;
-        }
-      }
       .regions-filters-container.active {
         background-color: hsl(209, 23%, 22%);
 
@@ -274,6 +192,7 @@ body {
       }
     }
     .details-container {
+      height: 100vh;
       nav > button {
         background-color: #2b3945;
         color: white;

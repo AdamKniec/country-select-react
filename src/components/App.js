@@ -11,7 +11,6 @@ function App(props) {
   const [countriesList, setCountriesList] = useState([]);
 
   const [inputValue, setInputValue] = useState("");
-  console.log(inputValue);
 
   const [darkMode, setDarkMode] = useState(false);
   const [regionFilter, setRegionFilter] = useState("All");
@@ -56,6 +55,7 @@ function App(props) {
               setRegionFilter={selectRegionFilter}
               toggleDarkMode={toggleDarkMode}
               selectedRegion={regionFilter}
+              darkMode={darkMode}
             />
           </div>
           <div className="countries-list-wrapper">

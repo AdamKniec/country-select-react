@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { ReactComponent as ArrowIcon } from "../assets/imgs/arrow.svg";
 
 const CountryDetails = (props) => {
   const [selectedCountry, setSelectedCountry] = useState({});
@@ -9,12 +11,11 @@ const CountryDetails = (props) => {
   }, [window.location.href, props.countriesList]);
 
   const filterBasedOfUrlParam = () => {
-    const countryCode = props.history.location.pathname;
-    const noSlashCountryCode = countryCode.substr(1).toLowerCase();
+    const countryToBeDisplayed = props.history.location.pathname;
+    const noSlashCountryCode = countryToBeDisplayed.substr(1).toLowerCase();
 
     return props.countriesList.filter(
-      (country) =>
-        country.alpha3Code.toLowerCase().indexOf(noSlashCountryCode) !== -1
+      (country) => country.name.toLowerCase().indexOf(noSlashCountryCode) !== -1
     );
   };
   const getFullNamesArrayOfBorderCountries = () => {
@@ -36,6 +37,7 @@ const CountryDetails = (props) => {
             className="go-back-button"
             onClick={() => props.history.goBack()}
           >
+            <ArrowIcon />
             Back
           </button>
         </div>
@@ -101,41 +103,22 @@ const CountryDetails = (props) => {
               <p>
                 <span className="bold"> Border Countries: </span>
 
-                {
-                  getFullNamesArrayOfBorderCountries().map((item, i) => {
-                    return (
-                      <Link to={`${item}`} key={i}>
-                        <button
-                          onClick={() =>
-                            setSelectedCountry(filterBasedOfUrlParam()[0])
-                          }
-                          className="border-country"
-                        >
-                          {item}
-                        </button>
-                      </Link>
-                    );
-                  })
-                  // selectedCountry.borders.length ? (
-                  //   selectedCountry.borders.map((item, i) => {
-                  //     // console.log(fullNames);
-                  //     return (
-                  //       <Link to={`${item}`} key={i}>
-                  //         <button
-                  //           onClick={() =>
-                  //             setSelectedCountry(filterBasedOfUrlParam()[0])
-                  //           }
-                  //           className="border-country"
-                  //         >
-                  //           {item}
-                  //         </button>
-                  //       </Link>
-                  //     );
-                  //   })
-                  // ) : (
-                  //   <span>None</span>
-                  // )
-                }
+                {selectedCountry.borders.length !== 0
+                  ? getFullNamesArrayOfBorderCountries().map((item, i) => {
+                      return (
+                        <Link to={`${item}`} key={i}>
+                          <button
+                            onClick={() =>
+                              setSelectedCountry(filterBasedOfUrlParam()[0])
+                            }
+                            className="border-country"
+                          >
+                            {item}
+                          </button>
+                        </Link>
+                      );
+                    })
+                  : "None"}
               </p>
             </div>
           </div>
@@ -143,8 +126,18 @@ const CountryDetails = (props) => {
       </div>
     );
   } else {
-    return "nic nie ma ";
+    return (
+      // trzeba ponizsze zastapic jakims fajnym 404
+      <>
+        <NotFoundInfo>Oups! :( We did not find such a country !</NotFoundInfo>
+        <Link to="/">Back</Link>
+      </>
+    );
   }
 };
 
+const NotFoundInfo = styled.span`
+  margin-top: 200px;
+  font-size: 30px;
+`;
 export default CountryDetails;
