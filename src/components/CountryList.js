@@ -1,19 +1,56 @@
 import React from "react";
 import ListItem from "./CountryCard";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import NotFound from "./NoCountryMatch";
 
-const CountryList = (props) => {
+const CountryList = ({ list, darkMode }) => {
   const renderList = () => {
-    return props.list.map((item) => {
+    return list.map((item) => {
       return (
-        <Link to={`${item.name}`} key={item.name} className="country-item">
+        <CountryItemLink
+          to={`${item.name}`}
+          key={item.name}
+          className="country-item"
+        >
           <ListItem country={item} key={item.name} />
-        </Link>
+        </CountryItemLink>
       );
     });
   };
 
-  return props.list.length !== 0 ? renderList() : "";
+  return list.length !== 0 ? renderList() : <NotFound darkMode={darkMode} />;
 };
+
+const CountryItemLink = styled(Link)`
+  margin: 0 30px 30px 30px;
+  text-decoration: none;
+  color: black;
+  .country-list-item-wrapper {
+    border-radius: 0 0 10px 10px;
+    max-width: 250px;
+    .country-detail {
+      font-size: 0.8em;
+      .detail-info-title {
+        font-family: nunito medium;
+      }
+    }
+    .name {
+      font-family: Nunito Bold;
+      font-size: 1em;
+      margin: 0;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin-top: -6px; // moze da sie to jakos naprawic ?
+    }
+    .detail-wrapper {
+      padding-bottom: 30px;
+      p {
+        margin-bottom: 0;
+        margin-top: 5px;
+      }
+    }
+  }
+`;
 
 export default CountryList;

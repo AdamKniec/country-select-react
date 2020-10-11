@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "Nunito Thin";
+  src: url("../assets/fonts/NunitoSans-Light.ttf");
+}
+@font-face {
+  font-family: "Nunito Medium";
+  src: url("../assets/fonts/NunitoSans-SemiBold.ttf");
+}
+@font-face {
+  font-family: "Nunito Bold";
+  src: url("../assets/fonts/NunitoSans-ExtraBold.ttf");
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Nunito Thin;
+  .title {
+    font-family: Nunito Bold;
+  }
+
+  .content-container {
+    padding: 0 10%;
+    display: flex;
+    justify-content: center;
+    max-width: 1260px;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    .countries-list-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  .dark {
+    min-height: 100vh;
+    background-color: hsl(207, 26%, 17%);
+    .country-container {
+      color: #fff;
+      background-color: hsl(209, 23%, 22%);
+      border-radius: 0 0 10px 10px;
+    }
+    .details-container {
+      // height: 100vh;
+      nav > button {
+        background-color: #2b3945;
+        color: white;
+      }
+      .country-details-data-container {
+        color: #fff;
+        .border-country {
+          background-color: #2b3945;
+          color: white;
+        }
+      }
+    }
+  }
+}

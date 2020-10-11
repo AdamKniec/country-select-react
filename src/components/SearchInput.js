@@ -1,11 +1,15 @@
 import React from "react";
 import { ReactComponent as MagGlass } from "../assets/imgs/magGlass.svg";
 import styled from "styled-components";
+import { respondTo } from "../styles/RespondTo";
 
-const SearchInput = ({ value, changeHandler }) => {
-  console.log(value);
+const SearchInput = ({ value, changeHandler, darkMode }) => {
   return (
-    <Input htmlFor="searchInput" className="input-container">
+    <Label
+      htmlFor="searchInput"
+      className="input-container"
+      darkMode={darkMode}
+    >
       <span>
         <MagGlass className="mag-glass-icon" />
       </span>
@@ -18,11 +22,11 @@ const SearchInput = ({ value, changeHandler }) => {
         className="searchInput"
         placeholder="Search for a country..."
       />
-    </Input>
+    </Label>
   );
 };
 
-const Input = styled.label`
+const Label = styled.label`
   position: relative;
   span {
     position: absolute;
@@ -35,21 +39,27 @@ const Input = styled.label`
       width: 15px;
       height: 15px;
       left: 20px;
-      // position: absolute;
+      fill: ${(props) => (props.darkMode === true ? "white" : "#a9a9a9")};
     }
   }
 
   .searchInput {
+    color: ${(props) => (props.darkMode === true ? "white" : "black")};
     width: 400px;
     height: 40px;
-    // background: url("./assets/imgs/search\ \(1\).svg") no-repeat;
-    // background-size: 20px;
-    // background-position: 5%;
     padding-left: 50px;
     border: none;
-    background-color: hsl(0, 0%, 100%);
+    background-color: ${(props) =>
+      props.darkMode === true ? "hsl(209, 23%, 22%)" : "white"};
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
     border-radius: 5px;
+    &::placeholder {
+      color: ${(props) => (props.darkMode === true ? "white" : "#a9a9a9")};
+      opacity: 1;
+    }
+    ${respondTo.md`
+      width: -webkit-fill-available;
+  `}
   }
 `;
 

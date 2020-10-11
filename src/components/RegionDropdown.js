@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { ReactComponent as ArrowIcon } from "../assets/imgs/down-arrow.svg";
 import styled from "styled-components";
+import { respondTo } from "../styles/RespondTo";
 
 const RegionDropdown = ({ setRegionFilter, selectedRegion, darkMode }) => {
-  console.log(darkMode === true);
   const [active, setActive] = useState(false);
-  // console.log(selectedRegion);
   const selectableRegions = [
     "Africa",
     "Americas",
@@ -25,7 +24,7 @@ const RegionDropdown = ({ setRegionFilter, selectedRegion, darkMode }) => {
         className="region-switch-trigger"
         onClick={() => toggleRegionDropdown()}
       >
-        {selectedRegion !== "All" ? selectedRegion : "Select region"}
+        {selectedRegion !== "All" ? selectedRegion : "Filter by Region"}
         <span>
           <ArrowIcon className="arrow-icon" />
         </span>
@@ -71,6 +70,9 @@ const Dropdown = styled.div`
       props.darkMode === true ? "#2b3945" : "#fff"};
     border: none;
     margin-bottom: 5px;
+    ${respondTo.md`
+      margin-top: 20px;
+    `}
     .arrow-icon {
       width: 10px;
       height: 10px;
@@ -90,7 +92,8 @@ const Dropdown = styled.div`
     box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #fff;
+    background-color: ${(props) =>
+      props.darkMode === true ? "hsl(209, 23%, 22%)" : "white"};
     border-radius: 5px;
 
     .regionFilter {
@@ -99,6 +102,9 @@ const Dropdown = styled.div`
       padding-left: 20px;
       background-color: #fff;
       padding-bottom: 5px;
+      color: ${(props) => (props.darkMode ? "#fff" : "black")};
+      background-color: ${(props) =>
+        props.darkMode === true ? "hsl(209, 23%, 22%)" : "white"};
     }
   }
 `;

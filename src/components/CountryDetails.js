@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as ArrowIcon } from "../assets/imgs/arrow.svg";
+import NotFound from "./NoCountryMatch";
+import { respondTo } from "../styles/RespondTo";
 
 const CountryDetails = (props) => {
   const [selectedCountry, setSelectedCountry] = useState({});
@@ -33,15 +35,15 @@ const CountryDetails = (props) => {
     return (
       <div className="details-container">
         <div>
-          <button
-            className="go-back-button"
+          <GoBackButton
+            darkMode={props.darkMode}
             onClick={() => props.history.goBack()}
           >
             <ArrowIcon />
             Back
-          </button>
+          </GoBackButton>
         </div>
-        <div className="country-details-data-container">
+        <DetailsDataContainer>
           <div>{<img src={selectedCountry.flag} alt="" />}</div>
           <div>
             <div>
@@ -70,7 +72,7 @@ const CountryDetails = (props) => {
                   {selectedCountry.capital}
                 </p>
               </div>
-              <div>
+              <div className="column-second">
                 <p>
                   <span className="bold"> Top Level Domain: </span>
                   {selectedCountry.topLevelDomain}
@@ -100,44 +102,129 @@ const CountryDetails = (props) => {
             </div>
 
             <div className="borders bold">
-              <p>
-                <span className="bold"> Border Countries: </span>
-
-                {selectedCountry.borders.length !== 0
+                <p className="bold"> Border Countries: </p>
+                {/* <div className="border-links-wrapper"> */}
+                   {selectedCountry.borders.length !== 0
                   ? getFullNamesArrayOfBorderCountries().map((item, i) => {
                       return (
                         <Link to={`${item}`} key={i}>
-                          <button
+                          <BorderCountry
                             onClick={() =>
                               setSelectedCountry(filterBasedOfUrlParam()[0])
                             }
                             className="border-country"
                           >
                             {item}
-                          </button>
+                          </BorderCountry>
                         </Link>
                       );
                     })
                   : "None"}
-              </p>
+                {/* </div> */}
+               
             </div>
           </div>
-        </div>
+        </DetailsDataContainer>
       </div>
     );
   } else {
-    return (
-      // trzeba ponizsze zastapic jakims fajnym 404
-      <>
-        <NotFoundInfo>Oups! :( We did not find such a country !</NotFoundInfo>
-        <Link to="/">Back</Link>
-      </>
-    );
+    return <NotFound />;
   }
 };
 
-const NotFoundInfo = styled.span`
-  margin-top: 200px;
-  font-size: 30px;
+const GoBackButton = styled.button`
+  margin-top: 50px;
+  margin-bottom: 50px;
+  background-color: ${(props) => (props.darkMode ? "#2b3945" : "#fff")};
+  border: none;
+  width: 140px;
+  height: 40px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+  border-radius: 5px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+  color: ${(props) => (props.darkMode ? "#fff" : "black")};
+  svg {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 35px;
+    fill: ${(props) => (props.darkMode ? "#fff" : "black")};
+  }
 `;
+const BorderCountry = styled.button`
+  width: auto;
+  height: 30px;
+  background: none;
+  border: none;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  margin-right: 10px;
+  font-family: Nunito Thin;
+  padding: 0 15px 0 15px;
+  margin-bottom: 10px;
+`;
+const DetailsDataContainer = styled.div`
+  display: flex;
+  align-items: center;
+  ${respondTo.lg`
+    flex-direction: column;
+    align-items: end;
+  `}
+  img {
+    width: 500px;
+    height: 320px;
+    margin-right: 70px;
+    ${respondTo.sm`
+    width: 300px;
+    height: 170px;
+  `}
+  }
+  .country-name {
+    font-family: Nunito Bold;
+    font-size: 1.5rem;
+  }
+ 
+  .inline-details-content {
+    display:flex;
+    ${respondTo.sm`
+      flex-direction: column;
+    `}
+    ${respondTo.lg`
+      display: flex;
+    `}
+  .column-second {
+    ${respondTo.sm`
+    margin-top: 20px;
+  `}
+  }
+  }
+  .borders {
+    display: flex;
+    flex-wrap:wrap;
+    margin-top: 20px;
+    margin-bottom: 20px;
+     ${respondTo.lg`
+         display: block;
+     `}
+
+    .bold {
+      font-family: Nunito Medium;
+      font-size: 0.9rem;
+    }
+    a {
+      height: 30px;
+      margin-top: 10px;
+    }
+  }
+ 
+  .inline-details-content div p {
+    margin: 5px;
+  }
+`;
+// const CountryDetailDataBox = styled.div`
+
+// `
 export default CountryDetails;
