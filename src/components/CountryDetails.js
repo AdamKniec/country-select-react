@@ -10,7 +10,8 @@ const CountryDetails = (props) => {
 
   useEffect(() => {
     setSelectedCountry(filterBasedOfUrlParam()[0]);
-  }, [window.location.href, props.countriesList]);
+    
+  }, [window.location.href, props.countriesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filterBasedOfUrlParam = () => {
     const countryToBeDisplayed = props.history.location.pathname;
