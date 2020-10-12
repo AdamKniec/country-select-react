@@ -105,7 +105,7 @@ const ActionBox = styled.div`
   max-width: 1260px;
   flex-wrap: wrap;
   ${respondTo.md`
-  flex-direction: column;
+    flex-direction: column;
   `}
 `;
 

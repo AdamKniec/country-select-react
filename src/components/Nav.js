@@ -21,7 +21,7 @@ const Nav = ({ toggleDarkMode, darkMode }) => {
   );
 };
 const NavBar = styled.nav`
-  background-color: #hsl(0, 0%, 100%);
+  background-color: ${(props) => (props.darkMode === true ? "#2b3945" : "white;")};
   display: flex;
   justify-content: space-between;
   padding: 0 70px;

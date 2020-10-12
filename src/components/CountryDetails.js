@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ReactComponent as ArrowIcon } from "../assets/imgs/arrow.svg";
 import NotFound from "./NoCountryMatch";
 import { respondTo } from "../styles/RespondTo";
+// import '../assets/fonts/NunitoSans-SemiBold.ttf';
 
 const CountryDetails = (props) => {
   const [selectedCountry, setSelectedCountry] = useState({});
@@ -44,7 +45,7 @@ const CountryDetails = (props) => {
             Back
           </GoBackButton>
         </div>
-        <DetailsDataContainer>
+        <DetailsDataContainer darkMode={props.darkMode}>
           <div>{<img src={selectedCountry.flag} alt="" />}</div>
           <div>
             <div>
@@ -170,6 +171,8 @@ const BorderCountry = styled.button`
 const DetailsDataContainer = styled.div`
   display: flex;
   align-items: center;
+  color: ${(props) => (props.darkMode ? "#fff" : "black")};
+
   ${respondTo.lg`
     flex-direction: column;
     align-items: end;
@@ -201,12 +204,16 @@ const DetailsDataContainer = styled.div`
     margin-top: 20px;
   `}
   }
+  .bold {
+    font-family: Nunito Medium;
+  }
   }
   .borders {
     display: flex;
     flex-wrap:wrap;
     margin-top: 20px;
     margin-bottom: 20px;
+    
      ${respondTo.lg`
          display: block;
      `}
@@ -215,9 +222,16 @@ const DetailsDataContainer = styled.div`
       font-family: Nunito Medium;
       font-size: 0.9rem;
     }
+    p {
+      margin-right: 10px;
+    }
     a {
       height: 30px;
       margin-top: 10px;
+      button {
+        color: ${(props) => (props.darkMode ? "#fff" : "black")};
+        background-color: ${(props) => (props.darkMode === true ? "#2b3945" : "white;")};
+      }
     }
   }
  
