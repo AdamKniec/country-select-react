@@ -3,7 +3,8 @@
 Application idea comes from the Frontendmentor platform:
 
 https://www.frontendmentor.io/dashboard
-Live bersion of the page is available here:
+
+Live version of the page is available here:
 
 https://awesome-booth-e1a9c1.netlify.app/
 ## Installation
