@@ -9,7 +9,7 @@ const CountryList = ({ list, darkMode }) => {
     return list.map((item) => {
       return (
         <CountryItemLink
-          to={`${(item.name).replace(' ', '-')}`}
+          to={`${(item.name).replace(/\s+/g, '-')}`}
           key={item.name}
           className="country-item"
         >

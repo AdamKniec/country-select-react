@@ -18,7 +18,7 @@ const CountryDetails = (props) => {
     const noSlashCountryCode = countryToBeDisplayed.substr(1).toLowerCase();
 
     return props.countriesList.filter(
-      (country) => country.name.toLowerCase().replace(' ', '-').indexOf(noSlashCountryCode) !== -1
+      (country) => country.name.toLowerCase().replace(/\s+/g, '-').indexOf(noSlashCountryCode) !== -1
     );
   };
   const getFullNamesArrayOfBorderCountries = () => {
