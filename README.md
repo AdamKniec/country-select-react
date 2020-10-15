@@ -28,7 +28,7 @@ https://awesome-booth-e1a9c1.netlify.app/
 - React
 - Fetch API
 
-(I considered using Redux to manage the state, however this App is rather small and I will probably not add new features in the future so that's why I decided to use just React with component level state :) Further commits on this app will be mostyl related to refactoring.)
+(I considered using Redux to manage the state, however this App is rather small and I will probably not add new features in the future so that's why I decided to use just React with component level state :) Further commits on this app will be mostly related to refactoring.)
 ## toDo
 - Refactoring
 - Adding tests
