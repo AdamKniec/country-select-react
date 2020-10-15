@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { ReactComponent as ArrowIcon } from "../assets/imgs/arrow.svg";
-import NotFound from "./NoCountryMatch";
-import { respondTo } from "../styles/RespondTo";
+import { ReactComponent as ArrowIcon } from "../../assets/imgs/arrow.svg";
+import NotFound from "../../components/NoCountryMatch";
+import { respondTo } from "../../styles/RespondTo";
 // import '../assets/fonts/NunitoSans-SemiBold.ttf';
 
 const CountryDetails = (props) => {
@@ -11,7 +11,6 @@ const CountryDetails = (props) => {
 
   useEffect(() => {
     setSelectedCountry(filterBasedOfUrlParam()[0]);
-    
   }, [window.location.href, props.countriesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const filterBasedOfUrlParam = () => {
@@ -105,7 +104,6 @@ const CountryDetails = (props) => {
 
             <div className="borders bold">
                 <p className="bold"> Border Countries: </p>
-                {/* <div className="border-links-wrapper"> */}
                    {selectedCountry.borders.length !== 0
                   ? getFullNamesArrayOfBorderCountries().map((item, i) => {
                       return (
@@ -119,11 +117,9 @@ const CountryDetails = (props) => {
                             {item}
                           </BorderCountry>
                         </Link>
-                      );
+                       );
                     })
-                  : "None"}
-                {/* </div> */}
-               
+                  : <p>None</p>}
             </div>
           </div>
         </DetailsDataContainer>
@@ -213,17 +209,19 @@ const DetailsDataContainer = styled.div`
     flex-wrap:wrap;
     margin-top: 20px;
     margin-bottom: 20px;
-    
      ${respondTo.lg`
          display: block;
      `}
-
     .bold {
       font-family: Nunito Medium;
       font-size: 0.9rem;
     }
     p {
       margin-right: 10px;
+      margin-bottom: 0;
+      ${respondTo.lg`
+         margin-bottom: 10px;
+     `}
     }
     a {
       height: 30px;
@@ -233,6 +231,9 @@ const DetailsDataContainer = styled.div`
         background-color: ${(props) => (props.darkMode === true ? "#2b3945" : "white;")};
       }
     }
+    // span {
+    //   margin-top: 14px;
+    // }
   }
  
   .inline-details-content div p {

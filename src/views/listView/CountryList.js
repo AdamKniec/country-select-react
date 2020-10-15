@@ -2,7 +2,7 @@ import React from "react";
 import ListItem from "./CountryCard";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import NotFound from "./NoCountryMatch";
+import NotFound from "../../components/NoCountryMatch";
 
 const CountryList = ({ list, darkMode }) => {
   const renderList = () => {

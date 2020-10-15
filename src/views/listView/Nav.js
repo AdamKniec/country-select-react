@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { ReactComponent as MoonIcon } from "../assets/imgs/moon.svg";
+import { ReactComponent as MoonIcon } from "../../assets/imgs/moon.svg";
 
 const Nav = ({ toggleDarkMode, darkMode }) => {
   return (
