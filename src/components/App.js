@@ -1,12 +1,12 @@
 import "../styles/App.scss";
 import { respondTo } from "../styles/RespondTo";
-import Nav from "../views/listView/Nav";
+import Nav from "./Nav";
 import React, { useEffect, useState } from "react";
 import CountryList from "../views/listView/CountryList";
-import SearchInput from "./SearchInput";
+import SearchInput from "../views/listView/SearchInput";
 import { Route } from "react-router";
 import CountryDetails from "../views/detailView/CountryDetails";
-import RegionDropdown from "./RegionDropdown";
+import RegionDropdown from "../views/listView/RegionDropdown";
 import styled from "styled-components";
 import Loader from "../components/Loading";
 

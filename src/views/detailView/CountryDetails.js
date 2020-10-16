@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { ReactComponent as ArrowIcon } from "../../assets/imgs/arrow.svg";
 import NotFound from "../../components/NoCountryMatch";
 import { respondTo } from "../../styles/RespondTo";
-// import '../assets/fonts/NunitoSans-SemiBold.ttf';
 
 const CountryDetails = (props) => {
   const [selectedCountry, setSelectedCountry] = useState({});
@@ -107,7 +106,7 @@ const CountryDetails = (props) => {
                    {selectedCountry.borders.length !== 0
                   ? getFullNamesArrayOfBorderCountries().map((item, i) => {
                       return (
-                        <Link to={`${item}`} key={i}>
+                        <Link to={`${item.replace(/\s+/g, '-')}`} key={i}>
                           <BorderCountry
                             onClick={() =>
                               setSelectedCountry(filterBasedOfUrlParam()[0])
@@ -145,6 +144,9 @@ const GoBackButton = styled.button`
   align-items: center;
   padding-left: 20px;
   color: ${(props) => (props.darkMode ? "#fff" : "black")};
+  &:hover {
+    cursor: pointer;
+  }
   svg {
     width: 20px;
     height: 20px;
@@ -195,6 +197,9 @@ const DetailsDataContainer = styled.div`
     ${respondTo.lg`
       display: flex;
     `}
+    div p {
+      margin: 5px;
+    }
   .column-second {
     ${respondTo.sm`
     margin-top: 20px;
@@ -226,21 +231,12 @@ const DetailsDataContainer = styled.div`
     a {
       height: 30px;
       margin-top: 10px;
+      z-index: 100;      
       button {
         color: ${(props) => (props.darkMode ? "#fff" : "black")};
         background-color: ${(props) => (props.darkMode === true ? "#2b3945" : "white;")};
       }
     }
-    // span {
-    //   margin-top: 14px;
-    // }
-  }
- 
-  .inline-details-content div p {
-    margin: 5px;
   }
 `;
-// const CountryDetailDataBox = styled.div`
-
-// `
 export default CountryDetails;

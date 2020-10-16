@@ -1,7 +1,7 @@
 import React from "react";
-import { ReactComponent as MagGlass } from "../assets/imgs/magGlass.svg";
+import { ReactComponent as MagGlass } from "../../assets/imgs/magGlass.svg";
 import styled from "styled-components";
-import { respondTo } from "../styles/RespondTo";
+import { respondTo } from "../../styles/RespondTo";
 
 const SearchInput = ({ value, changeHandler, darkMode }) => {
   return (

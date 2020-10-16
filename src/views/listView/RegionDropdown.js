@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { ReactComponent as ArrowIcon } from "../assets/imgs/down-arrow.svg";
+import { ReactComponent as ArrowIcon } from "../../assets/imgs/down-arrow.svg";
 import styled from "styled-components";
-import { respondTo } from "../styles/RespondTo";
+import { respondTo } from "../../styles/RespondTo";
 
 const RegionDropdown = ({ setRegionFilter, selectedRegion, darkMode }) => {
   const [active, setActive] = useState(false);
