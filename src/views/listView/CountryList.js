@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useState} from "react";
 import ListItem from "./CountryCard";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NotFound from "../../components/NoCountryMatch";
+import  {filterCountriesList} from '../../components/domain'
+import { useEffect } from "react";
 
-const CountryList = ({ list, darkMode }) => {
+const CountryList = ({ darkMode, countriesList, inputValue, regionFilter }) => {
+
+const [filteredList, setFilteredList] = useState(countriesList)
+
+useEffect(()=>{
+  setFilteredList(filterCountriesList(countriesList, regionFilter, inputValue));
+},[inputValue, regionFilter])// eslint-disable-line react-hooks/exhaustive-deps
+
   const renderList = () => {
-    return list.map((item) => {
+    return filteredList.map((item) => {
       return (
         <CountryItemLink
           to={`${(item.name).replace(/\s+/g, '-')}`}
@@ -16,10 +25,10 @@ const CountryList = ({ list, darkMode }) => {
           <ListItem country={item} key={item.name} />
         </CountryItemLink>
       );
-    });
+    })
   };
 
-  return list.length !== 0 ? renderList() : <NotFound darkMode={darkMode} />;
+ return filteredList.length !== 0 ? renderList() : <NotFound darkMode={darkMode} />;
 };
 
 const CountryItemLink = styled(Link)`

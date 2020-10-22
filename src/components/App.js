@@ -9,26 +9,18 @@ import CountryDetails from "../views/detailView/CountryDetails";
 import RegionDropdown from "../views/listView/RegionDropdown";
 import styled from "styled-components";
 import Loader from "../components/Loading";
+import {getCountriesData} from '../../src/components/domain';
 
-function App(props) {
+function App({history}) {
   const [countriesList, setCountriesList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [darkMode, setDarkMode] = useState(false);
   const [regionFilter, setRegionFilter] = useState("All");
   const [isLoading, setIsLoading] = useState(false);
-  // console.log(isLoading);
 
   useEffect(() => {
     setIsLoading(true);
-    fetch("https://restcountries.eu/rest/v2/all").then((response) =>
-      response
-        .json()
-        .then((data) => {
-          setCountriesList(data);
-          setIsLoading(false);
-        })
-        .catch((err) => console.log(err))
-    );
+    getCountriesData(setCountriesList, setIsLoading);
   }, []);
 
   const toggleDarkMode = () => {
@@ -38,17 +30,6 @@ function App(props) {
   const handleInputChange = (e) => {
     setInputValue(e.target.value.toLowerCase());
   };
-
-  const filterCountriesList = countriesList.filter((country) => {
-    if (regionFilter !== "All") {
-      return (
-        country.region === regionFilter &&
-        country.name.toLowerCase().indexOf(inputValue) !== -1
-      );
-    } else {
-      return country.name.toLowerCase().indexOf(inputValue) !== -1;
-    }
-  });
 
   const selectRegionFilter = (regionFilter) => {
     setRegionFilter(regionFilter);
@@ -75,7 +56,7 @@ function App(props) {
           </ActionBox>
           <div className="countries-list-wrapper">
             {!isLoading ? (
-              <CountryList list={filterCountriesList} darkMode={darkMode} />
+              <CountryList  darkMode={darkMode}  countriesList={countriesList} inputValue = {inputValue} regionFilter = {regionFilter}/>
             ) : (
               <Loader />
             )}
@@ -85,7 +66,7 @@ function App(props) {
         <Route exact path="/:id">
           <CountryDetails
             countriesList={countriesList}
-            history={props.history}
+            history={history}
             darkMode={darkMode}
           />
         </Route>

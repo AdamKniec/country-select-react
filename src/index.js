@@ -10,5 +10,5 @@ ReactDOM.render(
       <Route path="/" component={App} />
     </React.StrictMode>
   </Router>,
-  document.getElementById("root")
+  document.getElementById("root") || document.createElement('div')
 );

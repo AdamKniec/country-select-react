@@ -4,32 +4,28 @@ import styled from "styled-components";
 import { ReactComponent as ArrowIcon } from "../../assets/imgs/arrow.svg";
 import NotFound from "../../components/NoCountryMatch";
 import { respondTo } from "../../styles/RespondTo";
+import {filterBasedOfUrlParam, getFullNamesArrayOfBorderCountries} from '../../components/domain';
 
 const CountryDetails = (props) => {
+  console.log(props.countriesList)
   const [selectedCountry, setSelectedCountry] = useState({});
 
   useEffect(() => {
-    setSelectedCountry(filterBasedOfUrlParam()[0]);
+    console.log(filterBasedOfUrlParam(props.history.location.pathname, props.countriesList))
+    setSelectedCountry(filterBasedOfUrlParam(props.history.location.pathname, props.countriesList)[0]);
   }, [window.location.href, props.countriesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const filterBasedOfUrlParam = () => {
-    const countryToBeDisplayed = props.history.location.pathname;
-    const noSlashCountryCode = countryToBeDisplayed.substr(1).toLowerCase();
 
-    return props.countriesList.filter(
-      (country) => country.name.toLowerCase().replace(/\s+/g, '-').indexOf(noSlashCountryCode) !== -1
-    );
-  };
-  const getFullNamesArrayOfBorderCountries = () => {
-    const arrayOfBorders = selectedCountry.borders;
-    return props.countriesList
-      .filter((country) => {
-        return arrayOfBorders
-          ? arrayOfBorders.indexOf(country.alpha3Code) !== -1
-          : [];
-      })
-      .map((item) => item.name);
-  };
+  // const getFullNamesArrayOfBorderCountries = () => {
+  //   const arrayOfBorders = selectedCountry.borders;
+  //   return props.countriesList
+  //     .filter((country) => {
+  //       return arrayOfBorders
+  //         ? arrayOfBorders.indexOf(country.alpha3Code) !== -1
+  //         : [];
+  //     })
+  //     .map((item) => item.name);
+  // };
 
   if (selectedCountry && selectedCountry.borders) {
     return (
@@ -104,12 +100,12 @@ const CountryDetails = (props) => {
             <div className="borders bold">
                 <p className="bold"> Border Countries: </p>
                    {selectedCountry.borders.length !== 0
-                  ? getFullNamesArrayOfBorderCountries().map((item, i) => {
+                  ? getFullNamesArrayOfBorderCountries(selectedCountry, props.countriesList).map((item, i) => {
                       return (
                         <Link to={`${item.replace(/\s+/g, '-')}`} key={i}>
                           <BorderCountry
                             onClick={() =>
-                              setSelectedCountry(filterBasedOfUrlParam()[0])
+                              setSelectedCountry(filterBasedOfUrlParam(props.history.location.pathname, props.countriesList)[0])
                             }
                             className="border-country"
                           >
