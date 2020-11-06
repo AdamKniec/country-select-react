@@ -34,4 +34,4 @@ https://awesome-booth-e1a9c1.netlify.app/
 - Refactoring
 - <s> Adding tests - domain logic </s>
 - Adding tests - UI behaviour
-- Adding prop types
+- <s> Adding prop types </s>

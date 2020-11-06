@@ -9,9 +9,8 @@ import CountryDetails from "../views/detailView/CountryDetails";
 import RegionDropdown from "../views/listView/RegionDropdown";
 import styled from "styled-components";
 import Loader from "../components/Loading";
-import { getCountriesData } from '../../src/components/domain';
+import {getCountriesData} from '../../src/components/domain';
 import PropTypes from 'prop-types';
-import { Acreditation } from './Acreditation';
 
 function App({history}) {
   
@@ -31,7 +30,7 @@ function App({history}) {
   };
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    setInputValue(e.target.value.toLowerCase());
   };
 
   const selectRegionFilter = (regionFilter) => {
@@ -74,7 +73,6 @@ function App({history}) {
           />
         </Route>
       </div>
-      <Acreditation acreditation="Icons taken from https://www.flaticon.com/" darkMode={darkMode}/>
     </div>
   );
 }
