@@ -1,27 +1,28 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from 'prop-types';
 
-const CountryCard = (props) => {
+const CountryCard = ({country: {name, population, flag, region, capital}}) => {
   return (
     <CountryCardItem className="country-list-item-wrapper">
-      <img src={`${props.country.flag}`} alt="" className="flag" />
+      <img src={`${flag}`} alt="" className="flag" />
       <div className="country-container">
-        <h4 className="country-detail name">{props.country.name}</h4>
+        <h4 className="country-detail name">{name}</h4>
         <div className="detail-wrapper">
           <p className="country-detail">
             {" "}
             <span className="detail-info-title">Population: </span>{" "}
-            {props.country.population}
+            {population}
           </p>
           <p className="country-detail">
             {" "}
             <span className="detail-info-title">Region: </span>{" "}
-            {props.country.region}
+            {region}
           </p>
           <p className="country-detail">
             {" "}
             <span className="detail-info-title"> Capital:</span>{" "}
-            {props.country.capital}
+            {capital}
           </p>
         </div>
       </div>
@@ -40,5 +41,15 @@ const CountryCardItem = styled.div`
     padding-left: 20px;
   }
 `;
+
+CountryCard.propTypes = {
+  country: PropTypes.shape({
+    name: PropTypes.string,
+    population: PropTypes.number,
+    flag: PropTypes.string,
+    region: PropTypes.string,
+    capital: PropTypes.string,
+  })
+};
 
 export default CountryCard;

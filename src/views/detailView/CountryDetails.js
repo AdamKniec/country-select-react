@@ -4,42 +4,69 @@ import styled from "styled-components";
 import { ReactComponent as ArrowIcon } from "../../assets/imgs/arrow.svg";
 import NotFound from "../../components/NoCountryMatch";
 import { respondTo } from "../../styles/RespondTo";
-import {filterBasedOfUrlParam, getFullNamesArrayOfBorderCountries} from '../../components/domain';
+import {filterBasedOfUrlParam, getFullNamesArrayOfBorderCountries, formatString} from '../../components/domain';
+import PropTypes from 'prop-types';
 
-const CountryDetails = (props) => {
-  console.log(props.countriesList)
+const CountryDetails = ({history, countriesList, darkMode}) => {
+
   const [selectedCountry, setSelectedCountry] = useState({});
 
   useEffect(() => {
-    console.log(filterBasedOfUrlParam(props.history.location.pathname, props.countriesList))
-    setSelectedCountry(filterBasedOfUrlParam(props.history.location.pathname, props.countriesList)[0]);
-  }, [window.location.href, props.countriesList]); // eslint-disable-line react-hooks/exhaustive-deps
+    setSelectedCountry(filterBasedOfUrlParam(history.location.pathname, countriesList)[0]);
+  }, [window.location.href, countriesList]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const renderCurrencies = () => {
+    return selectedCountry.currencies.map((currency, index) => {
+      return (
+        <span key={index}>
+          {(index ? ", " : "") + currency.name}
+        </span>
+      );
+    })
+  };
 
-  // const getFullNamesArrayOfBorderCountries = () => {
-  //   const arrayOfBorders = selectedCountry.borders;
-  //   return props.countriesList
-  //     .filter((country) => {
-  //       return arrayOfBorders
-  //         ? arrayOfBorders.indexOf(country.alpha3Code) !== -1
-  //         : [];
-  //     })
-  //     .map((item) => item.name);
-  // };
+  const renderBorderButtons = () => {
+    return selectedCountry.borders.length !== 0
+      ? getFullNamesArrayOfBorderCountries(selectedCountry, countriesList).map((countryName, i) => {
+          return (
+            <Link to={formatString(countryName)} key={i}>
+              <BorderCountry
+                onClick={() =>
+                  setSelectedCountry(filterBasedOfUrlParam(history.location.pathname, countriesList)[0])
+                }
+                className="border-country"
+              >
+                {countryName}
+              </BorderCountry>
+            </Link>
+           );
+        })
+      : <p>None</p>
+  };
+
+  const renderLanguages = () => {
+    return selectedCountry.languages.map((language, index) => {
+      return (
+        <span key={index}>
+          {(index ? ", " : "") + language.name}
+        </span>
+      );
+    })
+  }
 
   if (selectedCountry && selectedCountry.borders) {
     return (
       <div className="details-container">
         <div>
           <GoBackButton
-            darkMode={props.darkMode}
-            onClick={() => props.history.goBack()}
+            darkMode={darkMode}
+            onClick={() => history.goBack()}
           >
             <ArrowIcon />
             Back
           </GoBackButton>
         </div>
-        <DetailsDataContainer darkMode={props.darkMode}>
+        <DetailsDataContainer darkMode={darkMode}>
           <div>{<img src={selectedCountry.flag} alt="" />}</div>
           <div>
             <div>
@@ -74,47 +101,19 @@ const CountryDetails = (props) => {
                   {selectedCountry.topLevelDomain}
                 </p>
                 <p>
-                  {/* czy na pewno potrzebujemy na dole tego warunku sprzwdzajacego za kazdym razem ? ? */}
                   <span className="bold"> Currencies: </span>
-                  {selectedCountry.currencies.map((currency, index) => {
-                    return (
-                      <span key={index}>
-                        {(index ? ", " : "") + currency.name}
-                      </span>
-                    );
-                  })}
+                  {renderCurrencies(selectedCountry.currency)}
                 </p>
                 <p>
                   <span className="bold"> Languages: </span>
-                  {selectedCountry.languages.map((language, index) => {
-                    return (
-                      <span key={index}>
-                        {(index ? ", " : "") + language.name}
-                      </span>
-                    );
-                  })}
+                  {renderLanguages()}
                 </p>
               </div>
             </div>
 
             <div className="borders bold">
                 <p className="bold"> Border Countries: </p>
-                   {selectedCountry.borders.length !== 0
-                  ? getFullNamesArrayOfBorderCountries(selectedCountry, props.countriesList).map((item, i) => {
-                      return (
-                        <Link to={`${item.replace(/\s+/g, '-')}`} key={i}>
-                          <BorderCountry
-                            onClick={() =>
-                              setSelectedCountry(filterBasedOfUrlParam(props.history.location.pathname, props.countriesList)[0])
-                            }
-                            className="border-country"
-                          >
-                            {item}
-                          </BorderCountry>
-                        </Link>
-                       );
-                    })
-                  : <p>None</p>}
+                {renderBorderButtons()}
             </div>
           </div>
         </DetailsDataContainer>
@@ -162,11 +161,11 @@ const BorderCountry = styled.button`
   padding: 0 15px 0 15px;
   margin-bottom: 10px;
 `;
+
 const DetailsDataContainer = styled.div`
   display: flex;
   align-items: center;
   color: ${(props) => (props.darkMode ? "#fff" : "black")};
-
   ${respondTo.lg`
     flex-direction: column;
     align-items: end;
@@ -235,4 +234,11 @@ const DetailsDataContainer = styled.div`
     }
   }
 `;
+
+CountryDetails.propTypes = {
+  history: PropTypes.object,
+  countriesList: PropTypes.array,
+  darkMode: PropTypes.bool
+};
+
 export default CountryDetails;

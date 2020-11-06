@@ -1,11 +1,9 @@
-import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries } from './domain';
-import { render, unmountComponentAtNode } from "react-dom";
-import { act } from 'react-dom/test-utils';
-import CountryList from '../views/listView/CountryList';
-import React from "react";
-import {Router} from 'react-router-dom';
-
-
+import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString } from './domain';
+// import { render, unmountComponentAtNode } from "react-dom";
+// import { act } from 'react-dom/test-utils';
+// import CountryList from '../views/listView/CountryList';
+// import React from "react";
+// import {Router} from 'react-router-dom';
 
   const testData = [
         {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
@@ -36,7 +34,6 @@ describe('Filter countries based on the Url path', ()=> {
     });
 
 })
-
 
 describe('Filter countries based on the input value and dropdown value', ()=> {
 
@@ -104,6 +101,26 @@ describe('Create the array of border countries with full names instead of shorte
         expect(borderCountriesArrayWithFullNames).toEqual(expectedResult);
     })
 
+});
+
+describe('Should make the string lowercase and should replace all spaces with dashes "-"', ()=> {
+    it('Should replace empty spaces with dashes', () => {
+        // arrange
+        const testString = "this is a test string";
+        // act
+        const formattedString = formatString(testString);
+        // assert
+        expect(formattedString).toEqual('this-is-a-test-string');
+    });
+    it('Should make all of the characters lower case and replace spaces with dashes', ()=> {
+        // arrange
+        const testString = 'ThiS iS a tESt StriNg';
+        //act
+        const formattedString = formatString(testString);
+        //assert
+        expect(formattedString).toEqual('this-is-a-test-string');
+
+    })
 })
 
 // describe('Fetching API', ()=>{

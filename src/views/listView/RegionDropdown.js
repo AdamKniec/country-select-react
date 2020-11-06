@@ -2,20 +2,30 @@ import React, { useState } from "react";
 import { ReactComponent as ArrowIcon } from "../../assets/imgs/down-arrow.svg";
 import styled from "styled-components";
 import { respondTo } from "../../styles/RespondTo";
+import { selectableRegions } from '../../components/domain';
+import PropTypes from 'prop-types';
 
 const RegionDropdown = ({ setRegionFilter, selectedRegion, darkMode }) => {
-  const [active, setActive] = useState(false);
-  const selectableRegions = [
-    "Africa",
-    "Americas",
-    "Asia",
-    "Europe",
-    "Oceania",
-    "All",
-  ];
 
+  const [active, setActive] = useState(false);
+  
   const toggleRegionDropdown = () => {
     setActive(!active);
+  };
+
+  const renderRegionDropdownValues = () => {
+    return selectableRegions.map((region) => (
+      <button
+        className="regionFilter"
+        key={region}
+        onClick={() => {
+          setRegionFilter(region);
+          setActive(false);
+        }}
+      >
+        {region}
+      </button>
+    ))
   };
 
   return (
@@ -36,18 +46,7 @@ const RegionDropdown = ({ setRegionFilter, selectedRegion, darkMode }) => {
             : "regions-filters-container"
         }
       >
-        {selectableRegions.map((region) => (
-          <button
-            className="regionFilter"
-            key={region}
-            onClick={() => {
-              setRegionFilter(region);
-              setActive(false);
-            }}
-          >
-            {region}
-          </button>
-        ))}
+        {renderRegionDropdownValues()}
       </div>
     </Dropdown>
   );
@@ -108,4 +107,11 @@ const Dropdown = styled.div`
     }
   }
 `;
+
+RegionDropdown.propTypes = {
+  setRegionFilter: PropTypes.func,
+  selectedRegion: PropTypes.string,
+  darkMode: PropTypes.bool
+};
+
 export default RegionDropdown;

@@ -3,7 +3,7 @@ import ListItem from "./CountryCard";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import NotFound from "../../components/NoCountryMatch";
-import  {filterCountriesList} from '../../components/domain'
+import  {filterCountriesList, formatString} from '../../components/domain'
 import { useEffect } from "react";
 
 const CountryList = ({ darkMode, countriesList, inputValue, regionFilter }) => {
@@ -18,7 +18,7 @@ useEffect(()=>{
     return filteredList.map((item) => {
       return (
         <CountryItemLink
-          to={`${(item.name).replace(/\s+/g, '-')}`}
+          to={formatString(item.name)}
           key={item.name}
           className="country-item"
         >
@@ -50,7 +50,7 @@ const CountryItemLink = styled(Link)`
       margin: 0;
       padding-top: 20px;
       padding-bottom: 20px;
-      margin-top: -6px; // moze da sie to jakos naprawic ?
+      margin-top: -6px; // TO DO ->fix ?
     }
     .detail-wrapper {
       padding-bottom: 30px;

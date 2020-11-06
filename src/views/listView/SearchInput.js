@@ -2,6 +2,7 @@ import React from "react";
 import { ReactComponent as MagGlass } from "../../assets/imgs/magGlass.svg";
 import styled from "styled-components";
 import { respondTo } from "../../styles/RespondTo";
+import PropTypes from 'prop-types';
 
 const SearchInput = ({ value, changeHandler, darkMode }) => {
   return (
@@ -62,5 +63,11 @@ const Label = styled.label`
   `}
   }
 `;
+
+SearchInput.propTypes = {
+  value: PropTypes.string,
+  changeHandler: PropTypes.func,
+  darkMode: PropTypes.bool
+};
 
 export default SearchInput;

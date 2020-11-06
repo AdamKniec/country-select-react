@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { ReactComponent as MoonIcon } from "../assets/imgs/moon.svg";
+import PropTypes from 'prop-types';
 
 const Nav = ({ toggleDarkMode, darkMode }) => {
   return (
@@ -20,6 +21,7 @@ const Nav = ({ toggleDarkMode, darkMode }) => {
     </NavBar>
   );
 };
+
 const NavBar = styled.nav`
   background-color: ${(props) => (props.darkMode === true ? "#2b3945" : "white;")};
   display: flex;
@@ -31,11 +33,11 @@ const NavBar = styled.nav`
     color: ${(props) => (props.darkMode === true ? "white" : "black")};
   }
 `;
+
 const DarkModeToggleButton = styled.button`
   background: none;
   border: none;
   color: ${(props) => (props.darkMode === true ? "white" : "black")};
-
   &:hover {
     cursor: pointer;
   }
@@ -47,5 +49,10 @@ const DarkModeToggleButton = styled.button`
     fill: ${(props) => (props.darkMode === true ? "white" : "black")};
   }
 `;
+
+Nav.propTypes = {
+  toggleDarkMode: PropTypes.func,
+  darkMode: PropTypes.bool
+};
 
 export default Nav;

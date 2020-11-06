@@ -17,28 +17,24 @@ export const filterCountriesList = (countriesList, regionFilter, inputValue) =>
     if (regionFilter !== "All") {
       return (
         country.region === regionFilter &&
-        country.name.toLowerCase().indexOf(inputValue) !== -1
+        country.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1
       );
     } else {
-      return country.name.toLowerCase().indexOf(inputValue) !== -1;
+      return country.name.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1;
     }
 });
-
 
 export const filterBasedOfUrlParam = (pathname, countriesList) => {
   const countryToBeDisplayed = pathname;
   const noSlashCountryCode = countryToBeDisplayed.substr(1).toLowerCase();
 
   return countriesList.filter(
-    (country) => country.name.toLowerCase()
-    .replace(/\s+/g, '-') // replace empty spaces with dashes
+    (country) => formatString(country.name)
     .indexOf(noSlashCountryCode) !== -1
   )
-
 };
 
 export const getFullNamesArrayOfBorderCountries = (selectedCountry, countriesList) => {
-  console.log(selectedCountry)
   const arrayOfBorders = selectedCountry.borders;
   return countriesList
     .filter((country) => {
@@ -48,3 +44,16 @@ export const getFullNamesArrayOfBorderCountries = (selectedCountry, countriesLis
     })
     .map((item) => item.name);
 };
+
+export const formatString = (string) =>  string.toLowerCase().replace(/\s+/g, '-'); // RegExp: replace spaces with -
+
+// DOMAIN RELATED VARIABLES
+
+export const selectableRegions = [
+  "Africa",
+  "Americas",
+  "Asia",
+  "Europe",
+  "Oceania",
+  "All",
+];
