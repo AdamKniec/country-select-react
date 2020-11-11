@@ -5,12 +5,13 @@ import PropTypes from 'prop-types';
 
 const Nav = ({ toggleDarkMode, darkMode }) => {
   return (
-    <NavBar darkMode={darkMode}>
+    <NavBar darkMode={darkMode} data-testid="navbar-panel">
       <h3 className="title">Where in the world ?</h3>
       <div className="dark-mode-toggle-container">
         <DarkModeToggleButton
           onClick={() => toggleDarkMode()}
           darkMode={darkMode}
+          data-testid="toggle-theme-button"
         >
           <span>
             <MoonIcon />

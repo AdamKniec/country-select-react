@@ -11,6 +11,7 @@ import styled from "styled-components";
 import Loader from "../components/Loading";
 import {getCountriesData} from '../../src/components/domain';
 import PropTypes from 'prop-types';
+import {Acreditation} from '../components/Acreditation';
 
 function App({history}) {
   
@@ -25,20 +26,14 @@ function App({history}) {
     getCountriesData(setCountriesList, setIsLoading);
   }, []);
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
+  const toggleDarkMode = () => setDarkMode(!darkMode);
 
-  const handleInputChange = (e) => {
-    setInputValue(e.target.value.toLowerCase());
-  };
+  const handleInputChange = (e) => setInputValue(e.target.value);
 
-  const selectRegionFilter = (regionFilter) => {
-    setRegionFilter(regionFilter);
-  };
+  const selectRegionFilter = (regionFilter) => setRegionFilter(regionFilter)
 
   return (
-    <div className={darkMode ? `App dark` : "App"}>
+    <div className={darkMode ? `App dark` : "App"} data-testid="app-wrapper">
       <Nav toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
       <div className="content-container">
         <Route exact path="/">
@@ -58,11 +53,12 @@ function App({history}) {
           </ActionBox>
           <div className="countries-list-wrapper">
             {!isLoading ? (
-              <CountryList  darkMode={darkMode}  countriesList={countriesList} inputValue = {inputValue} regionFilter = {regionFilter}/>
+              <CountryList  darkMode={darkMode}  countriesList={countriesList} inputValue = {inputValue} regionFilter = {regionFilter}/>              
             ) : (
               <Loader />
             )}
           </div>
+              {!isLoading && inputValue === '' && <Acreditation darkMode = {darkMode} acreditation={'Icons taken from Flaticon.com'}/>}
         </Route>
 
         <Route exact path="/:id">
