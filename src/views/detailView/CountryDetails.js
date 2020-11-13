@@ -29,16 +29,13 @@ const CountryDetails = ({history, countriesList, darkMode}) => {
     return selectedCountry.borders.length !== 0
       ? getFullNamesArrayOfBorderCountries(selectedCountry, countriesList).map((countryName, i) => {
           return (
-            <Link to={formatString(countryName)} key={i}>
-              <BorderCountry
-                onClick={() =>
-                  setSelectedCountry(filterBasedOfUrlParam(history.location.pathname, countriesList)[0])
-                }
-                className="border-country"
+            <BorderCountryLink 
+              to={formatString(countryName)} 
+              key={i} className='border-country'
+              darkmode = {darkMode ? 'true' : 'false'}
               >
-                {countryName}
-              </BorderCountry>
-            </Link>
+              {countryName}
+            </BorderCountryLink>
            );
         })
       : <p>None</p>
@@ -150,16 +147,28 @@ const GoBackButton = styled.button`
     fill: ${(props) => (props.darkMode ? "#fff" : "black")};
   }
 `;
-const BorderCountry = styled.button`
+const BorderCountryLink = styled(Link)`
   width: auto;
-  height: 30px;
-  background: none;
   border: none;
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
   margin-right: 10px;
   font-family: Nunito Thin;
   padding: 0 15px 0 15px;
   margin-bottom: 10px;
+  text-decoration: none;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (props.darkmode === 'true' ? "#2b3945;" : "white;")};
+  color: ${(props) => (props.darkmode === 'true' ? "#fff" : "#black")};
+  height: 30px;
+  margin-top: 10px;
+  z-index: 100;
+  ${respondTo.lg`
+    width: fit-content;
+  `}
+
 `;
 
 const DetailsDataContainer = styled.div`
@@ -210,7 +219,7 @@ const DetailsDataContainer = styled.div`
     margin-top: 20px;
     margin-bottom: 20px;
      ${respondTo.lg`
-         display: block;
+         display: flex;
      `}
     .bold {
       font-family: Nunito Medium;
@@ -221,16 +230,8 @@ const DetailsDataContainer = styled.div`
       margin-bottom: 0;
       ${respondTo.lg`
          margin-bottom: 10px;
+         width: 100%;
      `}
-    }
-    a {
-      height: 30px;
-      margin-top: 10px;
-      z-index: 100;      
-      button {
-        color: ${(props) => (props.darkMode ? "#fff" : "black")};
-        background-color: ${(props) => (props.darkMode === true ? "#2b3945" : "white;")};
-      }
     }
   }
 `;
