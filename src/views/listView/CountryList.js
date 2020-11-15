@@ -7,7 +7,6 @@ import  {filterCountriesList, formatString} from '../../components/domain'
 import { useEffect } from "react";
 
 const CountryList = ({ darkMode, countriesList, inputValue, regionFilter }) => {
-console.log('re-rendered')
 const [filteredList, setFilteredList] = useState(countriesList)
 
 useEffect(()=>{

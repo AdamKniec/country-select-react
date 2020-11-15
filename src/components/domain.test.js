@@ -1,4 +1,4 @@
-import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString, getCountriesData } from './domain';
+import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString } from './domain';
 
   const testData = [
         {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
@@ -7,15 +7,6 @@ import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCo
         {name: 'Germany', capital: 'Berlin', borders: ['POL', 'BEL'], region: 'Europe', alpha3Code: "DEU"},
         {name: 'Belarus', capital: 'Minsk', borders: ['LVA', 'LTU'], region: 'Europe', alpha3Code: "BEL"}
     ];
-// global.fetch = jest.fn(()=> {
-//     Promise.resolve({
-//         json: () => {
-//           return  Promise.resolve(
-//                 [{'name': 'Afghanistan', 'alpha2Code': 'AF'}, {'name': 'Poland', 'alpha2Code': 'PL'}]
-//             )
-//         }
-//     })
-// })
 
 describe('Filter countries based on the Url path', ()=> {
 
@@ -126,13 +117,3 @@ describe('Should make the string lowercase and should replace all spaces with da
 
     })
 })
-
-
-// describe("Calling the API", ()=> {
-//     it('Should return the data correctly', ()=> {
-//         const apiResult = getCountriesData();
-//         console.log(apiResult)
-//         expect(apiResult).toEqual([{'name': 'Afghanistan', 'alpha2Code': 'AF'}, {'name': 'Poland', 'alpha2Code': 'PL'}]);
-
-//     })
-// })
