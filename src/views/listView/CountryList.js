@@ -7,12 +7,12 @@ import  {filterCountriesList, formatString} from '../../components/domain'
 import { useEffect } from "react";
 
 const CountryList = ({ darkMode, countriesList, inputValue, regionFilter }) => {
-
+console.log('re-rendered')
 const [filteredList, setFilteredList] = useState(countriesList)
 
 useEffect(()=>{
   setFilteredList(filterCountriesList(countriesList, regionFilter, inputValue));
-},[inputValue, regionFilter])// eslint-disable-line react-hooks/exhaustive-deps
+},[inputValue, regionFilter, countriesList])// eslint-disable-line react-hooks/exhaustive-deps
 
   const renderList = () => {
     return filteredList.map((item) => {

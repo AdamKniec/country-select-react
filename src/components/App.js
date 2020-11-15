@@ -14,7 +14,6 @@ import PropTypes from 'prop-types';
 import {Acreditation} from '../components/Acreditation';
 
 function App({history}) {
-  
   const [countriesList, setCountriesList] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [darkMode, setDarkMode] = useState(false);
@@ -23,8 +22,16 @@ function App({history}) {
 
   useEffect(() => {
     setIsLoading(true);
-    getCountriesData(setCountriesList, setIsLoading);
+    setDataFromApi()
   }, []);
+
+  useEffect(()=> {
+    setIsLoading(false);
+  }, [countriesList])
+
+const setDataFromApi = () => {
+  return getCountriesData().then(data => setCountriesList(data));
+}
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
 

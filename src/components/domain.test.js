@@ -1,9 +1,4 @@
-import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString } from './domain';
-// import { render, unmountComponentAtNode } from "react-dom";
-// import { act } from 'react-dom/test-utils';
-// import CountryList from '../views/listView/CountryList';
-// import React from "react";
-// import {Router} from 'react-router-dom';
+import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString, getCountriesData } from './domain';
 
   const testData = [
         {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
@@ -12,6 +7,15 @@ import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCo
         {name: 'Germany', capital: 'Berlin', borders: ['POL', 'BEL'], region: 'Europe', alpha3Code: "DEU"},
         {name: 'Belarus', capital: 'Minsk', borders: ['LVA', 'LTU'], region: 'Europe', alpha3Code: "BEL"}
     ];
+// global.fetch = jest.fn(()=> {
+//     Promise.resolve({
+//         json: () => {
+//           return  Promise.resolve(
+//                 [{'name': 'Afghanistan', 'alpha2Code': 'AF'}, {'name': 'Poland', 'alpha2Code': 'PL'}]
+//             )
+//         }
+//     })
+// })
 
 describe('Filter countries based on the Url path', ()=> {
 
@@ -123,37 +127,12 @@ describe('Should make the string lowercase and should replace all spaces with da
     })
 })
 
-// describe('Fetching API', ()=>{
-//     let container = null;
-//     beforeEach(()=>{
-//         container = document.createElement('div');
-//         document.body.appendChild(container);
-//     })
-//     afterEach(() => {
-//         // cleanup on exiting
-//         unmountComponentAtNode(container);
-//         container.remove();
-//         container = null;
-//     });
 
-//     it('Should render the component with api data', async ()=> {
-//         const fakeResponse = testData;
-//         jest.spyOn(global, 'fetch').mockImplementation(()=> {
-//             Promise.resolve({
-//                 json: ()=> Promise.resolve(testData)
-//             })
-//         })
-//           await act(async ()=> {
-//         render(
-//         <Router history={{test: true}}>
-
-//             <CountryList countriesList = {testData}/>, container
-//         </Router>)
+// describe("Calling the API", ()=> {
+//     it('Should return the data correctly', ()=> {
+//         const apiResult = getCountriesData();
+//         console.log(apiResult)
+//         expect(apiResult).toEqual([{'name': 'Afghanistan', 'alpha2Code': 'AF'}, {'name': 'Poland', 'alpha2Code': 'PL'}]);
 
 //     })
-//     expect(container.querySelector("summary").textContent).toBe(fakeUser.name);
-        
-//     })
-
-    // global.fetch.mockRestore();
 // })
