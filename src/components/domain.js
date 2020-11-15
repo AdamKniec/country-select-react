@@ -5,8 +5,7 @@ export const getCountriesData = (setCountriesList, setIsLoading) => {
     response
       .json()
       .then((data) => {
-        setCountriesList(data);
-        setIsLoading(false);
+        return data;
       })
       .catch((err) => console.log(err))
   );

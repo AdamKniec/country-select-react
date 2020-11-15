@@ -1,9 +1,4 @@
 import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString } from './domain';
-// import { render, unmountComponentAtNode } from "react-dom";
-// import { act } from 'react-dom/test-utils';
-// import CountryList from '../views/listView/CountryList';
-// import React from "react";
-// import {Router} from 'react-router-dom';
 
   const testData = [
         {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
@@ -122,38 +117,3 @@ describe('Should make the string lowercase and should replace all spaces with da
 
     })
 })
-
-// describe('Fetching API', ()=>{
-//     let container = null;
-//     beforeEach(()=>{
-//         container = document.createElement('div');
-//         document.body.appendChild(container);
-//     })
-//     afterEach(() => {
-//         // cleanup on exiting
-//         unmountComponentAtNode(container);
-//         container.remove();
-//         container = null;
-//     });
-
-//     it('Should render the component with api data', async ()=> {
-//         const fakeResponse = testData;
-//         jest.spyOn(global, 'fetch').mockImplementation(()=> {
-//             Promise.resolve({
-//                 json: ()=> Promise.resolve(testData)
-//             })
-//         })
-//           await act(async ()=> {
-//         render(
-//         <Router history={{test: true}}>
-
-//             <CountryList countriesList = {testData}/>, container
-//         </Router>)
-
-//     })
-//     expect(container.querySelector("summary").textContent).toBe(fakeUser.name);
-        
-//     })
-
-    // global.fetch.mockRestore();
-// })
