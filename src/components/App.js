@@ -25,11 +25,11 @@ function App({history}) {
     setDataFromApi();
   }, []);
 
-  useEffect(()=> {
+  const setDataFromApi = () => getCountriesData().then(data => {
     setIsLoading(false);
-  }, [countriesList])
-
-const setDataFromApi = () => getCountriesData().then(data => setCountriesList(data));
+    setCountriesList(data)
+  });
+  
   const toggleDarkMode = () => setDarkMode(!darkMode);
 
   const handleInputChange = (e) => setInputValue(e.target.value);

@@ -1,12 +1,19 @@
-import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString } from './domain';
+import { filterBasedOfUrlParam, filterCountriesList, getFullNamesArrayOfBorderCountries, formatString, getCountriesData } from './domain';
 
-  const testData = [
-        {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
-        {name: 'Afghanistan', capital: 'Tokio', borders: ['CHN', 'UZB'], region: 'Asia', alpha3Code: "AFG"},
-        {name: 'United States of America', capital: 'Washington', borders: ['CAN', 'MEX'],region: 'Americas', alpha3Code: "USA"},
-        {name: 'Germany', capital: 'Berlin', borders: ['POL', 'BEL'], region: 'Europe', alpha3Code: "DEU"},
-        {name: 'Belarus', capital: 'Minsk', borders: ['LVA', 'LTU'], region: 'Europe', alpha3Code: "BEL"}
-    ];
+const testData = [
+    {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
+    {name: 'Afghanistan', capital: 'Tokio', borders: ['CHN', 'UZB'], region: 'Asia', alpha3Code: "AFG"},
+    {name: 'United States of America', capital: 'Washington', borders: ['CAN', 'MEX'],region: 'Americas', alpha3Code: "USA"},
+    {name: 'Germany', capital: 'Berlin', borders: ['POL', 'BEL'], region: 'Europe', alpha3Code: "DEU"},
+    {name: 'Belarus', capital: 'Minsk', borders: ['LVA', 'LTU'], region: 'Europe', alpha3Code: "BEL"}
+];
+
+global.fetch = jest.fn(()=> 
+    Promise.resolve({
+        json: ()=> Promise.resolve(testData)
+    })
+    
+)
 
 describe('Filter countries based on the Url path', ()=> {
 
@@ -116,4 +123,32 @@ describe('Should make the string lowercase and should replace all spaces with da
         expect(formattedString).toEqual('this-is-a-test-string');
 
     })
+})
+
+describe('Api call test', ()=> {
+
+    const data = [];
+
+    it('Should call the mocked API call and return particular data', async ()=> {
+        const data = await getCountriesData();
+        expect(data).toEqual(testData);
+    });
+
+    it('Should fail if the expected data struture is different',  ()=> {
+        // const data = await getCountriesData();
+        const testData = [[
+            {name: 'Poland', capital: 'Warsaw', borders: ['BLR', 'DEU'], region: 'Europe', alpha3Code: "POL"},
+            {name: 'Afghanistan', capital: 'Tokio', borders: ['CHN', 'UZB'], region: 'Asia', alpha3Code: "AFG"},
+            {name: 'United States of America', capital: 'Washington', borders: ['CAN', 'MEX'],region: 'Americas', alpha3Code: "USA"},
+            {name: 'Germany', capital: 'Berlin', borders: ['POL', 'BEL'], region: 'Europe', alpha3Code: "DEU"},
+            {name: 'Belarus', capital: 'Minsk', borders: ['LVA', 'LTU'], region: 'Europe', alpha3Code: "BEL"}
+        ]]
+        expect(data).not.toEqual(testData);
+    });
+
+    it('Should have been called once',  ()=> {
+        expect(fetch).toHaveBeenCalledTimes(1);
+    });
+
+
 })
