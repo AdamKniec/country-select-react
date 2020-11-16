@@ -35,3 +35,4 @@ https://awesome-booth-e1a9c1.netlify.app/
 - <s> Adding tests - domain logic </s>
 - Adding tests - UI behaviour
 - <s> Adding prop types </s>
+- <s> API call tests </s>
